@@ -5,7 +5,7 @@
 - [server-script](https://github.com/aroxu/server-script)
 ## Build
 ```gradle
-./gradlew clean dist
+./gradlew clean paperJar
 ```
 ---
 ## Author
