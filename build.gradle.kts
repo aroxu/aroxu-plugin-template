@@ -11,9 +11,9 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8:1.5.21"))
-    implementation("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    implementation("io.github.monun:kommand-api:2.6.6")
+    compileOnly(kotlin("stdlib-jdk8:1.5.21"))
+    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    compileOnly("io.github.monun:kommand-api:2.6.6")
 }
 
 tasks {
