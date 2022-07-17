@@ -1,19 +1,20 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.21"
-    kotlin("plugin.serialization") version "1.5.21"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 repositories {
     maven("https://repo.maven.apache.org/maven2/")
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
+    mavenCentral()
 }
 
 dependencies {
-    compileOnly(kotlin("stdlib-jdk8:1.5.21"))
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    compileOnly("io.github.monun:kommand-api:2.6.6")
+    compileOnly(kotlin("stdlib-jdk8:1.6.21"))
+    compileOnly("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT")
+    implementation("io.github.monun:kommand-api:2.12.0")
 }
 
 tasks {

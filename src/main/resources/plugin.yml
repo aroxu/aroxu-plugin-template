@@ -1,10 +1,10 @@
 name: ProjName
-main: me.aroxu.projname.ProjNamePlugin
+main: me.aroxu.projname.ProjName
 version: $version
-api-version: '1.17'
+api-version: '1.19'
 
 author: aroxu
 
 libraries:
-  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21
-  - io.github.monun:kommand:2.6.6
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21
+  - io.github.monun:kommand-core:2.12.0
