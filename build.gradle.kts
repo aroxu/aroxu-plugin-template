@@ -36,17 +36,17 @@ tasks {
     register<Jar>("paperJar") {
         archiveBaseName.set("VirtualChest")
         from(sourceSets["main"].output)
-        val pluginsDirectory = File(".server/plugins")
-        val plugins = pluginsDirectory.listFiles { file: File -> file.isFile && file.name.endsWith(".jar") }
-            ?: emptyArray()
+        val plugins = File(rootDir, ".server/plugins/")
 
-        if (plugins.none { it.name.startsWith(archiveBaseName.get()) }) into(plugins)
-        else {
-            val updateDirectory = File(pluginsDirectory, "update")
-            into(updateDirectory)
-            doLast {
-                File(updateDirectory, "UPDATE").createNewFile()
+        doLast {
+            copy {
+                from(archiveFile)
+                if (File(plugins, archiveFileName.get()).exists()) {
+                    File(plugins, archiveFileName.get()).delete()
+                }
+                into(plugins)
             }
+            File(File(plugins, "update"), "UPDATE").createNewFile()
         }
     }
 }
