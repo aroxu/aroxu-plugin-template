@@ -32,16 +32,16 @@ tasks {
             expand(project.properties)
         }
     }
-
+    
     register<Jar>("paperJar") {
-        archiveBaseName.set("ProjName")
+        archiveBaseName.set("VirtualChest")
         from(sourceSets["main"].output)
-
-        doLast {
-            copy {
-                from(archiveFile)
-                val plugins = File(rootDir, ".server/plugins/")
-                into(if (File(plugins, archiveFileName.get()).exists()) File(plugins, "update") else plugins)
+        copy {
+            from(archiveFile)
+            val plugins = File(rootDir, ".server/plugins/")
+            into(if (File(plugins, archiveFileName.get()).exists()) File(plugins, "update") else plugins)
+            doLast {
+                File(File(plugins, "update"), "UPDATE").createNewFile()
             }
         }
     }
