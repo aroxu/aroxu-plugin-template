@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("jvm") version "1.8.20"
+    kotlin("plugin.serialization") version "1.8.20"
 }
 
 repositories {
@@ -12,9 +12,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly(kotlin("stdlib-jdk8:1.6.21"))
-    compileOnly("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT")
-    implementation("io.github.monun:kommand-api:2.12.0")
+    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("io.github.monun:kommand-api:3.1.3")
 }
 
 tasks {
@@ -32,9 +31,9 @@ tasks {
             expand(project.properties)
         }
     }
-    
+
     register<Jar>("paperJar") {
-        archiveBaseName.set("VirtualChest")
+        archiveBaseName.set("ProjName")
         from(sourceSets["main"].output)
         val plugins = File(rootDir, ".server/plugins/")
 
@@ -46,7 +45,6 @@ tasks {
                 }
                 into(plugins)
             }
-            File(File(plugins, "update"), "UPDATE").createNewFile()
         }
     }
 }
