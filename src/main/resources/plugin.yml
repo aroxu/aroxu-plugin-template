@@ -1,9 +1,0 @@
-name: ProjName
-main: me.aroxu.projname.ProjName
-version: $version
-api-version: '1.19'
-
-author: aroxu
-
-libraries:
-  - io.github.monun:kommand-core:3.1.3

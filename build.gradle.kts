@@ -1,50 +1,56 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.8.20"
-    kotlin("plugin.serialization") version "1.8.20"
+    idea
+    kotlin("jvm") version Dependency.Kotlin.Version
+    id("net.minecrell.plugin-yml.paper") version "0.6.0"
+    id("xyz.jpenilla.run-paper") version "2.1.0"
 }
 
+group = "me.aroxu"
+version = "0.0.1"
+val codeName = "sample"
+
 repositories {
-    maven("https://repo.maven.apache.org/maven2/")
-    maven("https://repo.papermc.io/repository/maven-public/")
     mavenCentral()
+    Dependency.repos.forEach { maven(it) }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
-    compileOnly("io.github.monun:kommand-api:3.1.3")
+    library(kotlin("stdlib"))
+    compileOnly("io.papermc.paper:paper-api:${Dependency.Paper.Version}-R0.1-SNAPSHOT")
+    Dependency.Libraries.Lib.forEach { compileOnly(it) }
+    Dependency.Libraries.LibCore.forEach { paperLibrary(it) }
 }
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_16.toString()
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
     }
-
-    create<Jar>("sourcesJar") {
-        from(sourceSets["main"].allSource)
-        archiveClassifier.set("sources")
+    jar {
+        archiveBaseName.set(rootProject.name)
+        archiveClassifier.set("")
+        archiveVersion.set("")
     }
-
-    processResources {
-        filesMatching("**/*.yml") {
-            expand(project.properties)
-        }
+    runServer {
+        minecraftVersion(Dependency.Paper.Version)
+        jvmArgs = listOf("-Dcom.mojang.eula.agree=true")
     }
+}
 
-    register<Jar>("paperJar") {
-        archiveBaseName.set("ProjName")
-        from(sourceSets["main"].output)
-        val plugins = File(rootDir, ".server/plugins/")
-
-        doLast {
-            copy {
-                from(archiveFile)
-                if (File(plugins, archiveFileName.get()).exists()) {
-                    File(plugins, archiveFileName.get()).delete()
-                }
-                into(plugins)
-            }
-        }
+idea {
+    module {
+        excludeDirs.addAll(listOf(file("run"), file("out"), file(".idea")))
     }
+}
+
+paper {
+    main = "${project.group}.${codeName}.plugin.${codeName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}Plugin"
+    loader = "${project.group}.${codeName}.plugin.loader.${codeName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}PluginLoader"
+
+    generateLibrariesJson = true
+    foliaSupported = false
+
+    apiVersion = Dependency.Paper.API
 }
