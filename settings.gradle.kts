@@ -1,1 +1,1 @@
-rootProject.name = "paper-sample"
+rootProject.name = "aroxu-plugin-template"

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"UnstableApiUsage", "unused"})
+@SuppressWarnings({"UnstableApiUsage", "unused", "ClassEscapesDefinedScope"})
 public class SamplePluginLoader implements PluginLoader {
     @Override
     public void classloader(@NotNull PluginClasspathBuilder classpathBuilder) {
