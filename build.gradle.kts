@@ -3,9 +3,9 @@ import java.util.*
 
 plugins {
     idea
-    kotlin("jvm") version Dependency.Kotlin.Version
-    id("net.minecrell.plugin-yml.paper") version "0.6.0"
-    id("xyz.jpenilla.run-paper") version "2.2.2"
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.runPaper)
+    alias(libs.plugins.pluginYml)
 }
 
 group = "me.aroxu"
@@ -14,19 +14,23 @@ val codeName = "sample"
 
 repositories {
     mavenCentral()
-    Dependency.repos.forEach { maven(it) }
+    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
     library(kotlin("stdlib"))
-    compileOnly("io.papermc.paper:paper-api:${Dependency.Paper.Version}-R0.1-SNAPSHOT")
-    Dependency.Libraries.Lib.forEach { compileOnly(it) }
-    Dependency.Libraries.LibCore.forEach { paperLibrary(it) }
+    compileOnly(libs.paper)
+
+    compileOnly(libs.cloud)
+    compileOnly(libs.coroutines)
+    compileOnly(libs.mccoroutines)
+    compileOnly(libs.mccoroutinesCore)
 }
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_21.toString()
     }
     jar {
         archiveBaseName.set(rootProject.name)
@@ -34,7 +38,7 @@ tasks {
         archiveVersion.set("")
     }
     runServer {
-        minecraftVersion(Dependency.Paper.Version)
+        minecraftVersion(libs.paper.get().version!!.take(6))
         jvmArgs = listOf("-Dcom.mojang.eula.agree=true")
     }
 }
@@ -45,12 +49,13 @@ idea {
     }
 }
 
-paper {
+bukkit {
+    name = rootProject.name
+    version = rootProject.version.toString()
+
     main = "${project.group}.${codeName}.plugin.${codeName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}Plugin"
-    loader = "${project.group}.${codeName}.plugin.loader.${codeName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}PluginLoader"
 
-    generateLibrariesJson = true
-    foliaSupported = false
+    apiVersion = libs.paper.get().version!!.take(4)
 
-    apiVersion = Dependency.Paper.API
+    libraries = listOf(libs.cloud.get().toString(), libs.coroutines.get().toString(), libs.mccoroutines.get().toString(), libs.mccoroutinesCore.get().toString())
 }

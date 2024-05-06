@@ -1,0 +1,20 @@
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+pluginYml = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin_yml" }
+runPaper = { id = "xyz.jpenilla.run-paper", version.ref = "run_paper" }
+
+[libraries]
+paper = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
+coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+mccoroutines = { group = "com.github.shynixn.mccoroutine", name = "mccoroutine-bukkit-api", version.ref = "mccoroutine" }
+mccoroutinesCore = { group = "com.github.shynixn.mccoroutine", name = "mccoroutine-bukkit-core", version.ref = "mccoroutine" }
+cloud = { group = "cloud.commandframework", name = "cloud-paper", version.ref = "cloud" }
+
+[versions]
+paper = "1.20.6-R0.1-SNAPSHOT"
+kotlin = "1.9.23"
+plugin_yml = "0.6.0"
+run_paper = "2.3.0"
+coroutines = "1.8.0"
+mccoroutine = "2.16.0"
+cloud = "1.8.4"
