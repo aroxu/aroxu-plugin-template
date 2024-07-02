@@ -11,7 +11,8 @@ mccoroutinesCore = { group = "com.github.shynixn.mccoroutine", name = "mccorouti
 cloud = { group = "cloud.commandframework", name = "cloud-paper", version.ref = "cloud" }
 
 [versions]
-paper = "1.20.6-R0.1-SNAPSHOT"
+minecraft = "1.21"
+paper = "1.21-R0.1-SNAPSHOT"
 kotlin = "1.9.23"
 plugin_yml = "0.6.0"
 run_paper = "2.3.0"

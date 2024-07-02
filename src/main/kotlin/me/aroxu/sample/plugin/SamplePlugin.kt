@@ -25,11 +25,14 @@ class SamplePlugin : JavaPlugin() {
             Function.identity(),
             Function.identity()
         )
-        if (commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER)) {
-            commandManager.registerBrigadier()
-        } else if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
-            commandManager.registerAsynchronousCompletions()
-        }
+//        Disabled due to cloud command framework not supporting brigadier at this moment with 1.21
+//        if (commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER)) {
+//            commandManager.registerBrigadier()
+//        } else if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+//            commandManager.registerAsynchronousCompletions()
+//        }
+
+        commandManager.registerAsynchronousCompletions()
         commandManager.command(SampleCommand.registerCommand(commandManager))
     }
 }
