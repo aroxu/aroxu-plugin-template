@@ -1,6 +1,5 @@
 package me.aroxu.sample.plugin
 
-import cloud.commandframework.bukkit.CloudBukkitCapabilities
 import cloud.commandframework.execution.CommandExecutionCoordinator
 import cloud.commandframework.paper.PaperCommandManager
 import me.aroxu.sample.plugin.commands.SampleCommand
@@ -25,6 +24,7 @@ class SamplePlugin : JavaPlugin() {
             Function.identity(),
             Function.identity()
         )
+
 //        Disabled due to cloud command framework not supporting brigadier at this moment with 1.21
 //        if (commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER)) {
 //            commandManager.registerBrigadier()
@@ -33,6 +33,6 @@ class SamplePlugin : JavaPlugin() {
 //        }
 
         commandManager.registerAsynchronousCompletions()
-        commandManager.command(SampleCommand.registerCommand(commandManager))
+        SampleCommand.registerCommand(commandManager)
     }
 }
