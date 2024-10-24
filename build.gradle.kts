@@ -26,11 +26,6 @@ dependencies {
     compileOnly(libs.coroutines)
     compileOnly(libs.mccoroutines)
     compileOnly(libs.mccoroutinesCore)
-
-    paperLibrary(libs.cloud)
-    paperLibrary(libs.coroutines)
-    paperLibrary(libs.mccoroutines)
-    paperLibrary(libs.mccoroutinesCore)
 }
 
 tasks {
@@ -54,16 +49,14 @@ idea {
     }
 }
 
-paper {
+bukkit {
     name = rootProject.name
     version = rootProject.version.toString()
 
     main =
         "${project.group}.${codeName}.plugin.${codeName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}Plugin"
-    loader = "${project.group}.${codeName}.plugin.loader.${codeName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}PluginLoader"
+
+    libraries = listOf(libs.cloud.get().toString(), libs.coroutines.get().toString(), libs.mccoroutines.get().toString(), libs.mccoroutinesCore.get().toString())
 
     apiVersion = libs.paper.get().version!!.replace("-R0.1-SNAPSHOT", "")
-
-    generateLibrariesJson = true
-    foliaSupported = false
 }

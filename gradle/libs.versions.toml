@@ -1,6 +1,6 @@
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-pluginYml = { id = "net.minecrell.plugin-yml.paper", version.ref = "plugin_yml" }
+pluginYml = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin_yml" }
 runPaper = { id = "xyz.jpenilla.run-paper", version.ref = "run_paper" }
 
 [libraries]
